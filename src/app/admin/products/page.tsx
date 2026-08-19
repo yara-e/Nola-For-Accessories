@@ -47,7 +47,6 @@ export default function AdminProductsPage() {
     setProducts(prodRes?.products || []);
     setTotalPages(prodRes?.totalPages || 1);
 
-    // Safely extract category list across potential return object shapes
     const catData = catRes as any;
     const catList = Array.isArray(catData)
       ? catData
@@ -145,16 +144,16 @@ export default function AdminProductsPage() {
     <div className="min-h-screen bg-[#FAF9F6]">
       <AdminNavbar />
 
-      <main className="max-w-7xl mx-auto px-6 py-10 space-y-8">
-        <div className="flex items-center justify-between">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-serif text-3xl font-bold text-[#2A1B3D]">Products</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A1B3D]">Products</h1>
             <p className="text-xs text-gray-500 mt-1">Manage storefront items and inventory</p>
           </div>
 
           <button
             onClick={() => openModal()}
-            className="flex items-center gap-2 bg-[#5C3D6A] hover:bg-[#482D54] text-white px-5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-md"
+            className="flex items-center justify-center gap-2 bg-[#5C3D6A] hover:bg-[#482D54] text-white px-5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-md w-full sm:w-auto"
           >
             <Plus className="w-4 h-4" />
             <span>Add Product</span>
@@ -199,58 +198,61 @@ export default function AdminProductsPage() {
             <Loader2 className="w-8 h-8 animate-spin text-[#80608E]" />
           </div>
         ) : products.length === 0 ? (
-          <div className="bg-white rounded-3xl border-2 border-[#D8CDE0] p-12 text-center space-y-3">
+          <div className="bg-white rounded-3xl border-2 border-[#D8CDE0] p-8 sm:p-12 text-center space-y-3">
             <Tag className="w-10 h-10 text-[#80608E] mx-auto opacity-40" />
             <h3 className="font-serif text-xl font-bold text-[#2A1B3D]">No Products Found</h3>
             <p className="text-xs text-gray-500">There are no products in this category yet.</p>
           </div>
         ) : (
           <div className="space-y-6">
+            {/* SCROLLABLE TABLE CONTAINER FOR MOBILE & DESKTOP */}
             <div className="bg-white rounded-3xl border-2 border-[#D8CDE0] overflow-hidden shadow-sm">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-[#FAF9F6] border-b border-[#E5DCEB] text-xs font-bold text-[#80608E] uppercase">
-                    <th className="p-4">Product</th>
-                    <th className="p-4">Category</th>
-                    <th className="p-4">Price</th>
-                    <th className="p-4">Stock</th>
-                    <th className="p-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#E5DCEB] text-xs font-semibold text-[#2A1B3D]">
-                  {products.map((p) => (
-                    <tr key={p._id} className="hover:bg-[#FAF9F6]/50">
-                      <td className="p-4 flex items-center gap-3">
-                        <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-100 border shrink-0">
-                          <Image src={p.image || p.images?.[0] || '/placeholder.svg'} alt="" fill className="object-cover" />
-                        </div>
-                        <span className="font-bold">{p.name?.en || p.name}</span>
-                      </td>
-                      <td className="p-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F8F5FB] border border-[#E0D7E5] text-[11px] font-bold text-[#80608E]">
-                          <Tag className="w-3 h-3" />
-                          {getCategoryName(p.category)}
-                        </span>
-                      </td>
-                      <td className="p-4 font-serif text-sm font-bold text-[#5C3D6A]">EGP {p.price}</td>
-                      <td className="p-4">{p.stock ?? 0}</td>
-                      <td className="p-4 text-right space-x-2 rtl:space-x-reverse">
-                        <button onClick={() => openModal(p)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button onClick={() => handleDelete(p._id)} className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </td>
+              <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#D8CDE0]">
+                <table className="w-full text-left border-collapse min-w-[650px]">
+                  <thead>
+                    <tr className="bg-[#FAF9F6] border-b border-[#E5DCEB] text-xs font-bold text-[#80608E] uppercase whitespace-nowrap">
+                      <th className="p-4">Product</th>
+                      <th className="p-4">Category</th>
+                      <th className="p-4">Price</th>
+                      <th className="p-4">Stock</th>
+                      <th className="p-4 text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-[#E5DCEB] text-xs font-semibold text-[#2A1B3D] whitespace-nowrap">
+                    {products.map((p) => (
+                      <tr key={p._id} className="hover:bg-[#FAF9F6]/50">
+                        <td className="p-4 flex items-center gap-3 min-w-[200px]">
+                          <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-100 border shrink-0">
+                            <Image src={p.image || p.images?.[0] || '/placeholder.svg'} alt="" fill className="object-cover" />
+                          </div>
+                          <span className="font-bold truncate">{p.name?.en || p.name}</span>
+                        </td>
+                        <td className="p-4">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F8F5FB] border border-[#E0D7E5] text-[11px] font-bold text-[#80608E]">
+                            <Tag className="w-3 h-3" />
+                            {getCategoryName(p.category)}
+                          </span>
+                        </td>
+                        <td className="p-4 font-serif text-sm font-bold text-[#5C3D6A]">EGP {p.price}</td>
+                        <td className="p-4">{p.stock ?? 0}</td>
+                        <td className="p-4 text-right space-x-2 rtl:space-x-reverse">
+                          <button onClick={() => openModal(p)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <Edit className="w-4 h-4" />
+                          </button>
+                          <button onClick={() => handleDelete(p._id)} className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* PAGINATION CONTROLS */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between bg-white px-6 py-4 rounded-2xl border-2 border-[#D8CDE0]">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white px-4 sm:px-6 py-4 rounded-2xl border-2 border-[#D8CDE0]">
                 <span className="text-xs font-bold text-gray-500">
                   Page {currentPage} of {totalPages}
                 </span>
@@ -264,12 +266,12 @@ export default function AdminProductsPage() {
                     <ChevronLeft className="w-4 h-4 text-[#2A1B3D]" />
                   </button>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 overflow-x-auto max-w-[200px] sm:max-w-none">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                       <button
                         key={page}
                         onClick={() => setCurrentPage(page)}
-                        className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
+                        className={`w-8 h-8 rounded-xl text-xs font-bold shrink-0 transition-all ${
                           page === currentPage
                             ? 'bg-[#5C3D6A] text-white shadow-sm'
                             : 'bg-[#FAF9F6] border border-[#E5DCEB] text-[#2A1B3D] hover:bg-[#EFECE8]'
@@ -294,12 +296,12 @@ export default function AdminProductsPage() {
         )}
       </main>
 
-      {/* MODAL */}
+      {/* RESPONSIVE MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-2xl rounded-3xl p-8 border-2 border-[#D8CDE0] max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white w-full max-w-2xl rounded-3xl p-5 sm:p-8 border-2 border-[#D8CDE0] max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-serif text-2xl font-bold text-[#2A1B3D]">
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1B3D]">
                 {editingId ? 'Edit Product' : 'Create Product'}
               </h2>
               <button onClick={() => setModalOpen(false)}>
@@ -308,7 +310,7 @@ export default function AdminProductsPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold text-[#3D3442]">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block mb-1">Name (English)</label>
                   <input
@@ -329,7 +331,7 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block mb-1">Description (English)</label>
                   <textarea
@@ -350,7 +352,7 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block mb-1">Price (EGP)</label>
                   <input
