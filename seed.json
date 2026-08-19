@@ -1,0 +1,194 @@
+[
+  {
+    "name": {
+      "en": "Gold-Plated Layered Necklace",
+      "ar": "سلسلة طبقات مطلية بالذهب"
+    },
+    "description": {
+      "en": "Elegant multi-strand layered necklace with a polished 18k gold-plated finish for everyday sophistication.",
+      "ar": "سلسلة أنيقة متعددة الطبقات بتصميم مميز مطلي بالذهب عيار 18 لإطلالة يومية جذابة."
+    },
+    "price": 950,
+    "stock": 35,
+    "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  },
+  {
+    "name": {
+      "en": "Sterling Silver Charm Bracelet",
+      "ar": "سوار فضة استرليني"
+    },
+    "description": {
+      "en": "Delicate sterling silver bracelet featuring minimalist charms and a secure clasp.",
+      "ar": "سوار رقيق من الفضة الاسترليني يتميز بتعليقات بسيطة وقفل آمن."
+    },
+    "price": 1150,
+    "stock": 25,
+    "image": "https://images.unsplash.com/photo-1611591475713-1f35f795cb34?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  },
+  {
+    "name": {
+      "en": "Pearl Pendant Necklace",
+      "ar": "قلادة بحلية لؤلؤ"
+    },
+    "description": {
+      "en": "Timeless freshwater cultured pearl pendant suspended on a delicate gold chain.",
+      "ar": "قلادة كلاسيكية من اللؤلؤ الطبيعي المستزراعي متدلية على سلسلة ذهبية رقيقة."
+    },
+    "price": 1350,
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  },
+  {
+    "name": {
+      "en": "Minimalist Gold Cuff Bracelet",
+      "ar": "سوار عريض ذهبي بسيط"
+    },
+    "description": {
+      "en": "Sleek open-cuff bracelet designed for a modern, stackable wrist look.",
+      "ar": "سوار مفتوح بتصميم عصري أنيق يناسب التنسيق مع قطع أخرى."
+    },
+    "price": 800,
+    "stock": 40,
+    "image": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  },
+  {
+    "name": {
+      "en": "Amber & Vanilla Eau de Parfum",
+      "ar": "عطر أمبر وفانيليا"
+    },
+    "description": {
+      "en": "A warm and luxurious fragrance blending rich amber, sweet vanilla, and subtle floral notes.",
+      "ar": "عطر دافئ وفاره يمزج بين العنبر الغني والفانيليا الحلوة ولمسات خفيفة من الزهور."
+    },
+    "price": 2400,
+    "stock": 18,
+    "image": "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a836513b29719630c12f227"
+    }
+  },
+  {
+    "name": {
+      "en": "Citrus & Jasmine Luxury Perfume",
+      "ar": "عطر فاخر بالحمضيات والياسمين"
+    },
+    "description": {
+      "en": "Crisp top notes of bergamot and mandarin leading into a heart of fresh white jasmine.",
+      "ar": "نفحات عليا منعشة من البرتقال المداري والبرغموت تقود إلى قلب من ياسمين الأبيض النقي."
+    },
+    "price": 2850,
+    "stock": 15,
+    "image": "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a836513b29719630c12f227"
+    }
+  },
+  {
+    "name": {
+      "en": "Hydrating Hyaluronic Acid Serum",
+      "ar": "سيروم هيالورونيك أسيد مرطب"
+    },
+    "description": {
+      "en": "Intense moisture-boosting facial serum designed to plump skin and lock in hydration.",
+      "ar": "سيروم للوجه مقوي للترطيب العميق مصمم لملء البشرة والحفاظ على رطوبتها."
+    },
+    "price": 650,
+    "stock": 60,
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8361e7b29719630c12f225"
+    }
+  },
+  {
+    "name": {
+      "en": "Gentle Daily Facial Cleanser",
+      "ar": "غسول وجه يومي لطيف"
+    },
+    "description": {
+      "en": "pH-balanced foaming cleanser that removes impurities without stripping natural skin oils.",
+      "ar": "غسول رغوي متوازن الحموضة يزيل الشوائب دون تجريد البشرة من زيوتها الطبيعية."
+    },
+    "price": 420,
+    "stock": 75,
+    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8361e7b29719630c12f225"
+    }
+  },
+  {
+    "name": {
+      "en": "Vitamin C Brightening Cream",
+      "ar": "كريم تفتيح بفيتامين سي"
+    },
+    "description": {
+      "en": "Antioxidant-rich face cream that revives dull skin and promotes an even complexion.",
+      "ar": "كريم وجه غني بمضادات الأكسدة ينعش البشرة الباهتة ويعزز توحيد لونها."
+    },
+    "price": 790,
+    "stock": 50,
+    "image": "https://images.unsplash.com/photo-1608248597359-97423235b1d5?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8361e7b29719630c12f225"
+    }
+  },
+  {
+    "name": {
+      "en": "Rose Water Facial Mist",
+      "ar": "بخاخ وجه بماء الورد"
+    },
+    "description": {
+      "en": "Refreshing and soothing botanical facial mist to instantly revive tired skin throughout the day.",
+      "ar": "بخاخ وجه منعش ومهدئ ومستخلص من النباتات لإنعاش البشرة المتعبة طوال اليوم."
+    },
+    "price": 310,
+    "stock": 90,
+    "image": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8361e7b29719630c12f225"
+    }
+  },
+  {
+    "name": {
+      "en": "Geometric Statement Necklace",
+      "ar": "قلادة هندسية بتصميم بارز"
+    },
+    "description": {
+      "en": "Bold metallic statement necklace featuring modern geometric shapes and high polish.",
+      "ar": "قلادة جريئة بتصميم هندسي حديث ولمعان فائق لتكون قطعة مميزة في إطلالتك."
+    },
+    "price": 1050,
+    "stock": 22,
+    "image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  },
+  {
+    "name": {
+      "en": "Beaded Bohemian Bracelet",
+      "ar": "سوار بوهيمي مطرز"
+    },
+    "description": {
+      "en": "Handcrafted adjustable bracelet combining glass beads, metallic accents, and natural cord.",
+      "ar": "سوار قابل للتعديل مصنوع يدوياً يجمع بين الخرز الزجاجي واللمسات المعدنية والحبل الطبيعي."
+    },
+    "price": 450,
+    "stock": 55,
+    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+    "category": {
+      "$oid": "6a8356892a0ec19d620db9d7"
+    }
+  }
+]
