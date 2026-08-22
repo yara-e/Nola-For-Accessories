@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Gem, Gift, ShieldCheck, Heart } from 'lucide-react';
+import { ArrowRight, Gift, ShieldCheck, Heart } from 'lucide-react';
 import { useLanguage } from '@/context/languageContext';
 
 export default function Hero() {
@@ -36,18 +36,6 @@ export default function Hero() {
         <div className="max-w-xl text-left rtl:text-right">
           
           <div className="space-y-4">
-            
-            {/* EYEBROW TAG */}
-            <motion.div 
-              initial={{ opacity: 0, y: 12 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              className="flex items-center gap-2"
-            >
-              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#80608E]">
-                {language === 'ar' ? 'إكتشفي نولا' : 'DISCOVER NOLA'}
-              </span>
-              <Sparkles className="h-3.5 w-3.5 text-[#80608E]" />
-            </motion.div>
 
             {/* HEADLINE WITH INLINE LOGO */}
             <motion.h1 
@@ -103,7 +91,7 @@ export default function Hero() {
                 : 'Discover our collection of timeless pieces, designed to add a touch of elegance to every moment.'}
             </motion.p>
 
-            {/* ACTION BUTTONS: IDENTICAL EQUAL SIZES */}
+            {/* ACTION BUTTONS */}
             <motion.div 
               initial={{ opacity: 0, y: 18 }} 
               animate={{ opacity: 1, y: 0 }} 
@@ -134,15 +122,14 @@ export default function Hero() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-[#D8CDE0]/60">
           
           <div className="flex items-center gap-3 bg-white/85 backdrop-blur-md p-3 sm:p-3.5 rounded-2xl border border-[#E5DCEB] shadow-sm">
-            {/* <Gem className="w-4 sm:w-5 h-4 sm:h-5 text-[#80608E] shrink-0" /> */}
-<Image 
-  src="/diamond (2).png" 
-  alt="Diamond" 
-  width={24} 
-  height={24} 
-  style={{ width: '24px', height: '24px', minWidth: '24px', minHeight: '24px' }}
-  className="object-contain shrink-0" 
-/>
+            <Image 
+              src="/diamond (2).png" 
+              alt="Diamond" 
+              width={24} 
+              height={24} 
+              style={{ width: '24px', height: '24px', minWidth: '24px', minHeight: '24px' }}
+              className="object-contain shrink-0" 
+            />
             <div>
               <h4 className="text-[11px] sm:text-xs font-bold text-[#2A1B3D]">
                 {language === 'ar' ? 'جودة فاخرة' : 'Premium Quality'}
