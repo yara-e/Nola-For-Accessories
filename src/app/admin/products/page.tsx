@@ -2,12 +2,78 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import AdminNavbar from '@/components/admin/AdminNavbar';
 import { getPaginatedProducts, createProduct, updateProduct, deleteProduct } from '@/actions/productActions';
 import { getCategories } from '@/actions/categoryActions';
+import { useAdminLanguage } from '@/app/admin/AdminLanguageContext'; // Adjust path if needed
 import { Plus, Edit, Trash2, Upload, Loader2, X, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 
+const translations = {
+  en: {
+    title: 'Products',
+    subtitle: 'Manage storefront items and inventory',
+    addProduct: 'Add Product',
+    allProducts: 'All Products',
+    noProductsFound: 'No Products Found',
+    noProductsSub: 'There are no products in this category yet.',
+    colProduct: 'Product',
+    colCategory: 'Category',
+    colPrice: 'Price',
+    colStock: 'Stock',
+    colActions: 'Actions',
+    currency: 'EGP',
+    page: 'Page',
+    of: 'of',
+    editProduct: 'Edit Product',
+    createProduct: 'Create Product',
+    nameEn: 'Name (English)',
+    nameAr: 'Name (Arabic)',
+    descEn: 'Description (English)',
+    descAr: 'Description (Arabic)',
+    priceLabel: 'Price (EGP)',
+    stockLabel: 'Stock Quantity',
+    categoryLabel: 'Category',
+    selectCategory: 'Select Category',
+    productImage: 'Product Image',
+    imagePlaceholder: 'Click or drop a new image here',
+    saveProduct: 'Save Product',
+    deleteConfirm: 'Are you sure you want to delete this product?',
+  },
+  ar: {
+    title: 'المنتجات',
+    subtitle: 'إدارة المنتجات والمخزون في المتجر',
+    addProduct: 'إضافة منتج',
+    allProducts: 'جميع المنتجات',
+    noProductsFound: 'لم يتم العثور على منتجات',
+    noProductsSub: 'لا توجد منتجات في هذا القسم حالياً.',
+    colProduct: 'المنتج',
+    colCategory: 'القسم',
+    colPrice: 'السعر',
+    colStock: 'المخزون',
+    colActions: 'الإجراءات',
+    currency: 'ج.م',
+    page: 'صفحة',
+    of: 'من',
+    editProduct: 'تعديل المنتج',
+    createProduct: 'إنشاء منتج',
+    nameEn: 'الاسم (بالإنجليزية)',
+    nameAr: 'الاسم (بالعربية)',
+    descEn: 'الوصف (بالإنجليزية)',
+    descAr: 'الوصف (بالعربية)',
+    priceLabel: 'السعر (ج.م)',
+    stockLabel: 'كمية المخزون',
+    categoryLabel: 'القسم',
+    selectCategory: 'اختر القسم',
+    productImage: 'صورة المنتج',
+    imagePlaceholder: 'انقر أو أسقط صورة جديدة هنا',
+    saveProduct: 'حفظ المنتج',
+    deleteConfirm: 'هل أنت تأكد من رغبتك في حذف هذا المنتج؟',
+  },
+};
+
 export default function AdminProductsPage() {
+  const { lang } = useAdminLanguage();
+  const t = translations[lang];
+
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,9 +136,9 @@ export default function AdminProductsPage() {
     const catArray = Array.isArray(categories) ? categories : [];
     if (typeof category === 'string') {
       const found = catArray.find((c) => c._id === category || c.id === category);
-      return found?.name?.en || found?.name?.ar || found?.name || category;
+      return found?.name?.[lang] || found?.name?.en || found?.name?.ar || found?.name || category;
     }
-    return category.name?.en || category.name?.ar || category.name || '—';
+    return category.name?.[lang] || category.name?.en || category.name?.ar || category.name || '—';
   };
 
   const getCategoryObjId = (category: any) => {
@@ -132,7 +198,7 @@ export default function AdminProductsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this product?')) {
+    if (confirm(t.deleteConfirm)) {
       await deleteProduct(id);
       fetchData(currentPage, selectedCategoryFilter);
     }
@@ -142,13 +208,13 @@ export default function AdminProductsPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
-      <AdminNavbar />
+    
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A1B3D]">Products</h1>
-            <p className="text-xs text-gray-500 mt-1">Manage storefront items and inventory</p>
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A1B3D]">{t.title}</h1>
+            <p className="text-xs text-gray-500 mt-1">{t.subtitle}</p>
           </div>
 
           <button
@@ -156,7 +222,7 @@ export default function AdminProductsPage() {
             className="flex items-center justify-center gap-2 bg-[#5C3D6A] hover:bg-[#482D54] text-white px-5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-md w-full sm:w-auto"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Product</span>
+            <span>{t.addProduct}</span>
           </button>
         </div>
 
@@ -170,7 +236,7 @@ export default function AdminProductsPage() {
                 : 'bg-[#FAF9F6] text-[#3D3442] hover:bg-[#EFECE8] border border-[#E0D7E5]'
             }`}
           >
-            All Products
+            {t.allProducts}
           </button>
 
           {safeCategories.map((c) => {
@@ -187,7 +253,7 @@ export default function AdminProductsPage() {
                     : 'bg-[#FAF9F6] text-[#3D3442] hover:bg-[#EFECE8] border border-[#E0D7E5]'
                 }`}
               >
-                {c.name?.en || c.name?.ar || c.name}
+                {c.name?.[lang] || c.name?.en || c.name?.ar || c.name}
               </button>
             );
           })}
@@ -200,22 +266,22 @@ export default function AdminProductsPage() {
         ) : products.length === 0 ? (
           <div className="bg-white rounded-3xl border-2 border-[#D8CDE0] p-8 sm:p-12 text-center space-y-3">
             <Tag className="w-10 h-10 text-[#80608E] mx-auto opacity-40" />
-            <h3 className="font-serif text-xl font-bold text-[#2A1B3D]">No Products Found</h3>
-            <p className="text-xs text-gray-500">There are no products in this category yet.</p>
+            <h3 className="font-serif text-xl font-bold text-[#2A1B3D]">{t.noProductsFound}</h3>
+            <p className="text-xs text-gray-500">{t.noProductsSub}</p>
           </div>
         ) : (
           <div className="space-y-6">
-            {/* SCROLLABLE TABLE CONTAINER FOR MOBILE & DESKTOP */}
+            {/* SCROLLABLE TABLE CONTAINER */}
             <div className="bg-white rounded-3xl border-2 border-[#D8CDE0] overflow-hidden shadow-sm">
               <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#D8CDE0]">
-                <table className="w-full text-left border-collapse min-w-[650px]">
+                <table className="w-full text-start border-collapse min-w-[650px]">
                   <thead>
                     <tr className="bg-[#FAF9F6] border-b border-[#E5DCEB] text-xs font-bold text-[#80608E] uppercase whitespace-nowrap">
-                      <th className="p-4">Product</th>
-                      <th className="p-4">Category</th>
-                      <th className="p-4">Price</th>
-                      <th className="p-4">Stock</th>
-                      <th className="p-4 text-right">Actions</th>
+                      <th className="p-4 text-start">{t.colProduct}</th>
+                      <th className="p-4 text-start">{t.colCategory}</th>
+                      <th className="p-4 text-start">{t.colPrice}</th>
+                      <th className="p-4 text-start">{t.colStock}</th>
+                      <th className="p-4 text-end">{t.colActions}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#E5DCEB] text-xs font-semibold text-[#2A1B3D] whitespace-nowrap">
@@ -225,7 +291,7 @@ export default function AdminProductsPage() {
                           <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-100 border shrink-0">
                             <Image src={p.image || p.images?.[0] || '/placeholder.svg'} alt="" fill className="object-cover" />
                           </div>
-                          <span className="font-bold truncate">{p.name?.en || p.name}</span>
+                          <span className="font-bold truncate">{p.name?.[lang] || p.name?.en || p.name?.ar || p.name}</span>
                         </td>
                         <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F8F5FB] border border-[#E0D7E5] text-[11px] font-bold text-[#80608E]">
@@ -233,9 +299,11 @@ export default function AdminProductsPage() {
                             {getCategoryName(p.category)}
                           </span>
                         </td>
-                        <td className="p-4 font-serif text-sm font-bold text-[#5C3D6A]">EGP {p.price}</td>
+                        <td className="p-4 font-serif text-sm font-bold text-[#5C3D6A]">
+                          {t.currency} {p.price}
+                        </td>
                         <td className="p-4">{p.stock ?? 0}</td>
-                        <td className="p-4 text-right space-x-2 rtl:space-x-reverse">
+                        <td className="p-4 text-end space-x-2 rtl:space-x-reverse">
                           <button onClick={() => openModal(p)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                             <Edit className="w-4 h-4" />
                           </button>
@@ -254,7 +322,7 @@ export default function AdminProductsPage() {
             {totalPages > 1 && (
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white px-4 sm:px-6 py-4 rounded-2xl border-2 border-[#D8CDE0]">
                 <span className="text-xs font-bold text-gray-500">
-                  Page {currentPage} of {totalPages}
+                  {t.page} {currentPage} {t.of} {totalPages}
                 </span>
 
                 <div className="flex items-center gap-2">
@@ -263,7 +331,7 @@ export default function AdminProductsPage() {
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                     className="p-2 rounded-xl border border-[#E5DCEB] bg-[#FAF9F6] hover:bg-[#EFECE8] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
-                    <ChevronLeft className="w-4 h-4 text-[#2A1B3D]" />
+                    <ChevronLeft className="w-4 h-4 text-[#2A1B3D] rtl:rotate-180" />
                   </button>
 
                   <div className="flex items-center gap-1.5 overflow-x-auto max-w-[200px] sm:max-w-none">
@@ -287,7 +355,7 @@ export default function AdminProductsPage() {
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                     className="p-2 rounded-xl border border-[#E5DCEB] bg-[#FAF9F6] hover:bg-[#EFECE8] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
-                    <ChevronRight className="w-4 h-4 text-[#2A1B3D]" />
+                    <ChevronRight className="w-4 h-4 text-[#2A1B3D] rtl:rotate-180" />
                   </button>
                 </div>
               </div>
@@ -302,7 +370,7 @@ export default function AdminProductsPage() {
           <div className="bg-white w-full max-w-2xl rounded-3xl p-5 sm:p-8 border-2 border-[#D8CDE0] max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#2A1B3D]">
-                {editingId ? 'Edit Product' : 'Create Product'}
+                {editingId ? t.editProduct : t.createProduct}
               </h2>
               <button onClick={() => setModalOpen(false)}>
                 <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
@@ -312,7 +380,7 @@ export default function AdminProductsPage() {
             <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold text-[#3D3442]">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1">Name (English)</label>
+                  <label className="block mb-1">{t.nameEn}</label>
                   <input
                     required
                     value={formData.nameEn}
@@ -321,7 +389,7 @@ export default function AdminProductsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1">Name (Arabic)</label>
+                  <label className="block mb-1">{t.nameAr}</label>
                   <input
                     required
                     value={formData.nameAr}
@@ -333,7 +401,7 @@ export default function AdminProductsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1">Description (English)</label>
+                  <label className="block mb-1">{t.descEn}</label>
                   <textarea
                     rows={2}
                     value={formData.descEn}
@@ -342,7 +410,7 @@ export default function AdminProductsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1">Description (Arabic)</label>
+                  <label className="block mb-1">{t.descAr}</label>
                   <textarea
                     rows={2}
                     value={formData.descAr}
@@ -354,7 +422,7 @@ export default function AdminProductsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block mb-1">Price (EGP)</label>
+                  <label className="block mb-1">{t.priceLabel}</label>
                   <input
                     type="number"
                     required
@@ -364,7 +432,7 @@ export default function AdminProductsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1">Stock Quantity</label>
+                  <label className="block mb-1">{t.stockLabel}</label>
                   <input
                     type="number"
                     required
@@ -374,17 +442,17 @@ export default function AdminProductsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1">Category</label>
+                  <label className="block mb-1">{t.categoryLabel}</label>
                   <select
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full p-3 bg-[#FAF9F6] border border-[#E0D7E5] rounded-xl"
                   >
-                    <option value="">Select Category</option>
+                    <option value="">{t.selectCategory}</option>
                     {safeCategories.map((c) => (
                       <option key={c._id || c.id} value={c._id || c.id}>
-                        {c.name?.en || c.name?.ar || c.name}
+                        {c.name?.[lang] || c.name?.en || c.name?.ar || c.name}
                       </option>
                     ))}
                   </select>
@@ -393,7 +461,7 @@ export default function AdminProductsPage() {
 
               {/* Product Image Section */}
               <div>
-                <label className="block mb-2 text-gray-600">Product Image</label>
+                <label className="block mb-2 text-gray-600">{t.productImage}</label>
                 {existingImage && !file && (
                   <div className="mb-3 relative w-24 h-24 rounded-xl overflow-hidden border border-[#D8CDE0]">
                     <Image src={existingImage} alt="Current Product" fill className="object-cover" />
@@ -407,7 +475,7 @@ export default function AdminProductsPage() {
                     onChange={(e) => setFile(e.target.files?.[0] || null)}
                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
-                  <span>{file ? file.name : 'Click or drop a new image here'}</span>
+                  <span>{file ? file.name : t.imagePlaceholder}</span>
                 </div>
               </div>
 
@@ -416,7 +484,7 @@ export default function AdminProductsPage() {
                 disabled={submitting}
                 className="w-full py-3.5 bg-[#5C3D6A] text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-[#482D54] transition-colors"
               >
-                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save Product'}
+                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : t.saveProduct}
               </button>
             </form>
           </div>
