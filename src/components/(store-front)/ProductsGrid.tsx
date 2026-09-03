@@ -206,41 +206,43 @@ export default function ProductsGrid({
       )}
 
       {/* PAGINATION CONTROLS */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-3 pt-6">
-          <button
-            disabled={currentPage <= 1}
-            onClick={() => updateUrlParams(undefined, currentPage - 1)}
-            className="p-3 rounded-full border-2 border-[#D8CDE0] bg-white text-[#2A1B3D] hover:border-[#80608E] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-          >
-            <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
-          </button>
+      {/* PAGINATION CONTROLS */}
+{totalPages > 1 && (
+  <div className="flex items-center justify-center gap-2 pt-6 w-full max-w-full">
+    <button
+      disabled={currentPage <= 1}
+      onClick={() => updateUrlParams(undefined, currentPage - 1)}
+      className="p-2.5 sm:p-3 rounded-full border-2 border-[#D8CDE0] bg-white text-[#2A1B3D] hover:border-[#80608E] disabled:opacity-40 disabled:cursor-not-allowed transition-all shrink-0"
+    >
+      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 rtl:rotate-180" />
+    </button>
 
-          <div className="flex items-center gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => updateUrlParams(undefined, page)}
-                className={`w-10 h-10 rounded-full text-xs font-bold transition-all ${
-                  page === currentPage
-                    ? 'bg-[#5C3D6A] text-white shadow-md'
-                    : 'bg-white border-2 border-[#D8CDE0] text-[#2A1B3D] hover:border-[#80608E]'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
+    {/* Scrollable container for page numbers */}
+    <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 px-1 max-w-[60vw] sm:max-w-none">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          onClick={() => updateUrlParams(undefined, page)}
+          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full text-xs font-bold transition-all shrink-0 ${
+            page === currentPage
+              ? 'bg-[#5C3D6A] text-white shadow-md'
+              : 'bg-white border-2 border-[#D8CDE0] text-[#2A1B3D] hover:border-[#80608E]'
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+    </div>
 
-          <button
-            disabled={currentPage >= totalPages}
-            onClick={() => updateUrlParams(undefined, currentPage + 1)}
-            className="p-3 rounded-full border-2 border-[#D8CDE0] bg-white text-[#2A1B3D] hover:border-[#80608E] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-          >
-            <ChevronRight className="w-5 h-5 rtl:rotate-180" />
-          </button>
-        </div>
-      )}
+    <button
+      disabled={currentPage >= totalPages}
+      onClick={() => updateUrlParams(undefined, currentPage + 1)}
+      className="p-2.5 sm:p-3 rounded-full border-2 border-[#D8CDE0] bg-white text-[#2A1B3D] hover:border-[#80608E] disabled:opacity-40 disabled:cursor-not-allowed transition-all shrink-0"
+    >
+      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 rtl:rotate-180" />
+    </button>
+  </div>
+)}
     </div>
   );
 }
